@@ -505,7 +505,7 @@ class Reports{
                 $html .= '<tr>
                             <td class="table_cell">'. $row['business_nature'] .'</td>
                             <td class="table_cell">'. $row['count'] .'</td>
-                            <td class="table_cell">as</td>     
+                            <td class="table_cell"></td>     
                         </tr>';
             }
 
@@ -606,18 +606,28 @@ class Reports{
         
     }
 
-    public function getCollection_one(){
+    public function getCollection(){
 
         $return_array = self::$array;
-        return $this->_renderCollection_oneToHtml($return_array);
+        return $this->_renderCollectionToHtml($return_array);
 
     }
 
-    public function _renderCollection_oneToHtml($data){
+    public function _renderCollectionToHtml($data){
 
         if(count($data) > 0){
 
-            $html = '<tbody>';
+            $html = '<table id="collections" align="center" border="0" cellpadding="10" cellspacing="0" class="table_container">
+                    <thead>
+                        <tr style="background-color: #F0F0F0">
+                            <th class="table_cell">Office</th>
+                            <th class="table_cell">Client Name</th>
+                            <th class="table_cell">Invoice Amount</th>      
+                            <th class="table_cell">Status</th>
+                            <th class="table_cell">Pct</th>
+                        </tr>
+                    </thead>
+                    <tbody>';
 
         foreach($data as $ar){
             
@@ -630,7 +640,46 @@ class Reports{
                     </tr>';
         }
 
-            $html.='</tbody>';
+            $html.='</tbody>
+                    </table>
+                    <table align="center" border="0" cellpadding="10" cellspacing="0" style="margin-top: 20px;" class="table_container">
+                        <thead>
+                            <tr style="background-color: #F0F0F0"> 
+                                <th class="table_cell">Office</th>
+                                <th class="table_cell">Total Invoiced</th>
+                                <th class="table_cell">Collected</th>      
+                                <th class="table_cell">Receivable</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="table_cell">OPL 4</td>
+                                <td class="currency table_cell">600,000.00</td>
+                                <td class="currency table_cell">400,000.00</td>
+                                <td class="currency table_cell">200,000.00</td>
+                            </tr>
+                            <tr>
+                                <td class="table_cell">OPL 5</td>
+                                <td class="currency table_cell">600,000.00</td>
+                                <td class="currency table_cell">400,000.00</td>
+                                <td class="currency table_cell">200,000.00</td>
+                            </tr>
+                            <tr>
+                                <td class="table_cell">OPL 6</td>
+                                <td class="currency table_cell">600,000.00</td>
+                                <td class="currency table_cell">400,000.00</td>
+                                <td class="currency table_cell">200,000.00</td>
+                            </tr>
+                        </tbody>
+                        <tfoot style="background-color: #F0F0F0">
+                            <tr>
+                                <th class="table_cell">Total</th>
+                                <th class="currency table_cell">1,800,000.00</th>
+                                <th class="currency table_cell">1,200,000.00</th>
+                                <th class="currency table_cell">600,000.00</th>
+                            </tr>    
+                        </tfoot>
+                    </table>';
         }else{
             $html = '<table align="center" border="0" cellpadding="10" cellspacing="0" class="table_container">
                     <thead>
@@ -656,76 +705,6 @@ class Reports{
         return $html;
         
     }
-    public function getCollection_two(){
-        $return_array = self::$array;
-        return $this->_renderCollection_twoToHtml($return_array);
-    }
-
-    public function _renderCollection_twoToHtml($data){
-        if(count($data) > 0){
-
-            $html = '<tbody>';
-
-        foreach($data as $ar){
-            
-            $html .= '<tr>
-                        <td class="table_cell">OPL 4</td>
-                        <td class="currency table_cell">600,000.00</td>
-                        <td class="currency table_cell">400,000.00</td>
-                        <td class="currency table_cell">200,000.00</td>
-                    </tr>
-                    <tr>
-                        <td class="table_cell">OPL 5</td>
-                        <td class="currency table_cell">600,000.00</td>
-                        <td class="currency table_cell">400,000.00</td>
-                        <td class="currency table_cell">200,000.00</td>
-                    </tr>
-                    <tr>
-                        <td class="table_cell">OPL 6</td>
-                        <td class="currency table_cell">600,000.00</td>
-                        <td class="currency table_cell">400,000.00</td>
-                        <td class="currency table_cell">200,000.00</td>
-                    </tr>';
-        }
-
-            $html.='</tbody>';
-
-            $html .= '<tfoot style="background-color: #F0F0F0">
-                        <tr>
-                            <th class="table_cell">Total</th>
-                            <th class="currency table_cell">1,800,000.00</th>
-                            <th class="currency table_cell">1,200,000.00</th>
-                            <th class="currency table_cell">600,000.00</th>
-                        </tr>    
-                    </tfoot>';
-        }else{
-            $html = '<table align="center" border="0" cellpadding="10" cellspacing="0" class="table_container">
-                    <thead>
-                        <tr style="background-color: #F0F0F0">
-                            <th class="table_cell">Office</th>
-                            <th class="table_cell">Client Name</th>
-                            <th class="table_cell">Invoice Amount</th>      
-                            <th class="table_cell">Status</th>
-                            <th class="table_cell">Pct</th>
-                        </tr>
-                    </thead>
-                    <tbody>';
-
-            $html .= '<tr>
-                        <td colspan="5" style="border: 1px solid #c8c8c8;border-top: 0;padding: 20px 0px 20px 0px;">                       
-                                <center><h1>Empty</h1></center>    
-                        </td>
-                    </tr>';
-
-            $html .= "</tbody>";
-        }
-
-        return $html;
-    }
-    
-                            
-                       
-                        
 
 
 }

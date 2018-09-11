@@ -10,18 +10,18 @@ if(isset($_POST['html'])){
         //Server settings
         $mailer->SMTPDebug = 0;
         $mailer->isSMTP();
-        $mailer->Host = ' smtp.gmail.com';
+        $mailer->Host = ' mail.philipoh.site';
         $mailer->SMTPAuth = true;
-        $mailer->Username = 'pgrosales.apt@gmail.com';
-        $mailer->Password = 'letmein11';         
+        $mailer->Username = 'noreply@philipoh.site';                            //'pgrosales.apt@gmail.com';
+        $mailer->Password = 'letmein7';         
         // $mailer->Username = $config['mail_username'];
         // $mailer->Password = $config['mail_password'];
         $mailer->CharSet = 'UTF-8';
-        $mailer->SMTPSecure = 'tls';        
-        $mailer->Port = 587;                            
+        // $mailer->SMTPSecure = 'tls';        
+        $mailer->Port = 25;                  //587;                            
     
         //Recipients
-        $mailer->setFrom('no.reply@gmail.com', 'Penbrothers');
+        $mailer->setFrom('noreply@philipoh.site', 'Penbrothers');
         $mailer->addAddress('philip@penbrothers.com', 'Philip Rosales');     // Add a recipient
         // $mailer->addAddress("gui@penbrothers.com", 'Gui');
         // $mailer->addAddress("xxiootbob7xx@yahoo.com", "Philip Rosales");
@@ -57,8 +57,11 @@ if(isset($_POST['html'])){
         $mailer->AltBody = '';
     
         // var_dump($mailer->send());
-    
-        echo $html;
+        $mailer->send();
+        // echo $html;
+        if(!$mailer->send()){
+            echo $mailer->ErrorInfo;
+        }
     
     } catch (Exception $e) {
         echo '<pre>',print_r($e),'</pre>';

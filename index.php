@@ -1,3 +1,5 @@
+<?php require_once('./fc_Reports.php'); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,6 +55,12 @@
     {
         text-align: right;
     }
+
+	.pagebreak {
+			page-break-after: auto;
+			page-break-inside:avoid;
+		}
+
 </style>
 
 <body style="background-color:#e6e6e6">
@@ -80,7 +88,7 @@
 		</div>
     </div>
 <!-- NEW CLIENTS -->
-	<div>
+	<div class="pagebreak">
 		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1200" style="border:0;">
 			<tbody>
 				<tr>
@@ -120,7 +128,7 @@
 														
 													</tr>
 												</thead>
-													 
+												<?php echo $oReports->getNewClients(); ?>
 											</table>
 										</td>
 									</tr>
@@ -135,7 +143,7 @@
 <!-- END NEW CLIENTS -->
 
 <!-- LOST CLIENTS -->
-	<div>
+	<div class="pagebreak">
 		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1200" style="border:0;">
 			<tbody>
 				<tr>
@@ -171,7 +179,7 @@
 														<th class="table_cell">MRR</th>
 													</tr>
 												</thead>
-
+												<?php echo $oReports->getLostClients(); ?>
 											</table>
 										</td>
 									</tr>
@@ -186,7 +194,7 @@
 <!-- END LOST CLIENTS -->
 
 <!-- NEW EMPLOYEES -->
-	<div>
+	<div class="pagebreak">
 		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1200" style="border:0;">
 			<tbody>
 				<tr>
@@ -226,7 +234,7 @@
 														
 													</tr>
 												</thead>
-												
+												<?php echo $oReports->getNewEmployeesPB(); ?>
 											</table>
 
 											<table id="new_employees_non_pb" align="center" style="margin-top:20px" border="0" cellpadding="10" cellspacing="0" class="table_container">
@@ -246,7 +254,7 @@
 														
 													</tr>
 												</thead>
-												 
+												<?php echo $oReports->getNewEmployeesNonPB(); ?>
 											</table>
 
 										</td>
@@ -262,7 +270,7 @@
 <!-- END NEW EMPLOYEES -->
 
 <!--  LOST EMPLOYEES-->
-	<div>
+	<div class="pagebreak">
 		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1200" style="border:0;">
 			<tbody>
 				<tr>
@@ -296,7 +304,7 @@
 														<th class="table_cell">Company</th>
 													</tr>
 												</thead>
-												             
+												<?php echo $oReports->getLostEmployees(); ?>
 											</table>
 										</td>
 									</tr>
@@ -311,7 +319,7 @@
 <!-- END LOST EMPLOYEES -->
 
 <!-- SALES DISTRIBUTION -->
-	<div>
+	<div class="pagebreak">
 		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1200" style="border:0;">
 			<tbody>
 				<tr>
@@ -344,7 +352,7 @@
 														<th class="table_cell">MRR</th>
 													</tr>
 												</thead>
-												 												
+												<?php echo $oReports->getSalesDistribution(); ?>								
 											</table>
 										</td>
 									</tr>
@@ -359,7 +367,7 @@
 <!-- END SALES DISTRIBUTION -->
 
 <!-- CLIENT/EMPLOYEE by INDUSTRY -->
-	<div>
+	<div class="pagebreak">
 		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1200" style="border:0;">
 			<tbody>
 				<tr>
@@ -391,7 +399,7 @@
 														<th class="table_cell">No. of Employees</th>
 													</tr>
 												</thead>
-												 
+												<?php echo $oReports->getIndustry(); ?>
 											</table>
 										</td>
 									</tr>
@@ -406,7 +414,7 @@
 <!-- END CLIENT/EMPLOYEE by INDUSTRY -->
 
 <!-- CLIENTS REVENUE BY COUNTRY -->
-	<div>
+	<div class="pagebreak">
 		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1200" style="border:0;">
 			<tbody>
 				<tr>
@@ -438,7 +446,7 @@
 														<th class="table_cell">MRR</th>
 													</tr>
 												</thead>
-												 
+												<?php echo $oReports->getCountry(); ?>
 											</table>
 										</td>
 									</tr>
@@ -453,7 +461,7 @@
 <!-- END CLIENTS REVENUE BY COUNTRY -->
 
 <!-- COLLECTIONS -->
-	<div>
+	<div class="pagebreak">
 		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1200" style="border:0;">
 			<tbody>
 				<tr>
@@ -477,7 +485,29 @@
 									</tr>
 									<tr >
 										<td id="collections" style="border: 1px solid #c8c8c8;border-top: 0;padding: 20px 0px 20px 0px;">
-											
+										<table id="collections" align="center" border="0" cellpadding="10" cellspacing="0" class="table_container">
+											<thead>
+												<tr style="background-color: #F0F0F0">
+													<th class="table_cell">Office</th>
+													<th class="table_cell">Client Name</th>
+													<th class="table_cell">Invoice Amount</th>      
+													<th class="table_cell">Status</th>
+													<th class="table_cell">Pct</th>
+												</tr>
+											</thead>
+											<?php echo $oReports->getCollection_one(); ?>
+										</table>
+										<table align="center" border="0" cellpadding="10" cellspacing="0" style="margin-top: 20px;" class="table_container">
+										<thead>
+											<tr style="background-color: #F0F0F0"> 
+												<th class="table_cell">Office</th>
+												<th class="table_cell">Total Invoiced</th>
+												<th class="table_cell">Collected</th>      
+												<th class="table_cell">Receivable</th>
+											</tr>
+										</thead>								
+										<?php echo $oReports->getCollection_two(); ?>
+										</table>
 										</td>
 									</tr>
 								</tbody>
@@ -635,33 +665,33 @@
 		}
 		,
 		init : function(){
-			let reports_array = [
-				this.getNewClients(),
-				this.getLostClients(),
-				this.getNewEmployeesNonPB(),
-				this.getNewEmployeesPB(),
-				this.getLostEmployees(),
-				this.getSalesDistribution(),
-				this.getIndustry(),
-				this.getCountry(),
-				this.getCollection()
-				];
+			// let reports_array = [
+			// 	this.getNewClients(),
+			// 	this.getLostClients(),
+			// 	this.getNewEmployeesNonPB(),
+			// 	this.getNewEmployeesPB(),
+			// 	this.getLostEmployees(),
+			// 	this.getSalesDistribution(),
+			// 	this.getIndustry(),
+			// 	this.getCountry(),
+			// 	this.getCollection()
+			// 	];
 
-			$.when(...reports_array).then(function(){
-				// reports.sendEmail();
+			// $.when(...reports_array).then(function(){
+			// 	// reports.sendEmail();
 				
-				setTimeout(function(){
-					this.sendEmail();
-					// console.log($("#reports").html());
-				}.bind(this) ,2000);
-			}.bind(this));
+			// 	setTimeout(function(){
+			// 		this.sendEmail();
+			// 		// console.log($("#reports").html());
+			// 	}.bind(this) ,2000);
+			// }.bind(this));
 
 		}
 	}
 
 	reports.init();
 
-     
+  
 
     </script>
 </body>
