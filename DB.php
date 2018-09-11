@@ -11,9 +11,9 @@ class DB{
     public static function getInstance(){
         if(is_null(self::$instance) || self::$instance == null){
             try{
-                $dsn = "mysql:dbname=philipoh_pb;host=198.57.247.220";
-                $dbUser = "philipoh_user";
-                $dbPass = "letmein7";
+                $dsn = "mysql:dbname=9_33_pb;host=localhost";
+                $dbUser = "root";
+                $dbPass = "";
     
                 self::$instance = new PDO($dsn,$dbUser,$dbPass);
                 

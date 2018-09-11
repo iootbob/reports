@@ -1,5 +1,4 @@
 <?php require_once('./fc_Reports.php'); ?>
-<?php require_once('./phantomjs.php'); ?>
 
 <!DOCTYPE html>
 <html lang="en">
