@@ -9,11 +9,13 @@ class DB{
     }   
 
     public static function getInstance(){
+        global $config;
         if(is_null(self::$instance) || self::$instance == null){
             try{
-                $dsn = "mysql:dbname=9_33_pb;host=localhost";
-                $dbUser = "root";
-                $dbPass = "";
+                
+                $dsn = "mysql:dbname=penbros_coredb;host=108.167.142.45";
+                $dbUser = "penbros_master";
+                $dbPass = 'P3nBr0thers';
     
                 self::$instance = new PDO($dsn,$dbUser,$dbPass);
                 

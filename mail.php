@@ -1,5 +1,6 @@
 <?php 
 header("Content-type:text/html");
+require_once('./config.php');
 
 require_once(__DIR__.'/phpmailer/PHPMailerAutoload.php');
 
@@ -12,8 +13,8 @@ if(isset($_POST['html'])){
         $mailer->isSMTP();
         $mailer->Host = ' mail.philipoh.site';
         $mailer->SMTPAuth = true;
-        $mailer->Username = 'noreply@philipoh.site';                            //'pgrosales.apt@gmail.com';
-        $mailer->Password = 'letmein7';         
+        $mailer->Username = $config['username'];                            //'pgrosales.apt@gmail.com';
+        $mailer->Password = $config['password'];         
         // $mailer->Username = $config['mail_username'];
         // $mailer->Password = $config['mail_password'];
         $mailer->CharSet = 'UTF-8';
@@ -22,7 +23,12 @@ if(isset($_POST['html'])){
     
         //Recipients
         $mailer->setFrom('noreply@philipoh.site', 'Penbrothers');
-        $mailer->addAddress('philip@penbrothers.com', 'Philip Rosales');     // Add a recipient
+        // $mailer->addAddress('philip@penbrothers.com', 'Philip Rosales');     // Add a recipient
+        $mailer->addAddress('philiprosales95@gmail.com', 'Philip Rosales');     // Add a recipient
+        // $mailer->addAddress('john@penbrothers.com', 'John Erazo');     // Add a recipient
+        // $mailer->addAddress('stepphineuson@gmail.com');     // Add a recipient
+        // $mailer->addAddress('stepphineuson@icloud.com');     // Add a recipient
+        // $mailer->addAddress('stepphineuson@live.com');     // Add a recipient
         // $mailer->addAddress("gui@penbrothers.com", 'Gui');
         // $mailer->addAddress("xxiootbob7xx@yahoo.com", "Philip Rosales");
         // $mailer->addAddress('ellen@example.com');               // Name is optional
@@ -36,15 +42,15 @@ if(isset($_POST['html'])){
     
         //Content
         $mailer->isHTML(true);   
-        $mailer->AddEmbeddedImage("imgs/pb_cropped.png", "pb_cropped", "PB_Logo" , "base64");
-        $mailer->AddEmbeddedImage("imgs/new_client.png", "new_client","New_Clients", "base64");
-        $mailer->AddEmbeddedImage("imgs/client_lost.png", "client_lost", "Lost_Clients", "base64");
-        $mailer->AddEmbeddedImage("imgs/new_employee.png", "new_employee");
-        $mailer->AddEmbeddedImage("imgs/collection.png", "collection");
-        // $mailer->AddEmbeddedImage("imgs/renewed_client.png", "renewed_client");
-        $mailer->AddEmbeddedImage("imgs/client_price_range.png", "client_price_range");
-        $mailer->AddEmbeddedImage("imgs/client_info.png", "client_info");
-        $mailer->AddEmbeddedImage("imgs/client_revenue.png", "client_revenue");
+        $mailer->AddEmbeddedImage("new_icons/pb_cropped.png", "pb_cropped", "PB_Logo" , "base64");
+        $mailer->AddEmbeddedImage("new_icons/new_client.png", "new_client","New_Clients", "base64");
+        $mailer->AddEmbeddedImage("new_icons/client_lost.png", "client_lost", "Lost_Clients", "base64");
+        $mailer->AddEmbeddedImage("new_icons/new_employee.png", "new_employee");
+        // $mailer->AddEmbeddedImage("new_icons/collection.png", "collection");
+        // $mailer->AddEmbeddedImage("new_icons/renewed_client.png", "renewed_client");
+        $mailer->AddEmbeddedImage("new_icons/client_price_range.png", "client_price_range");
+        $mailer->AddEmbeddedImage("new_icons/client_by_industry.png", "client_by_industry");
+        $mailer->AddEmbeddedImage("new_icons/client_revenue_by_country.png", "client_revenue_by_country");
         
         // $mailer->AddEmbeddedImage("imgs/lost_employee.png", "lost_employee");
         // $mailer->AddEmbeddedImage("imgs/freshdesk.png", "freshdesk");
@@ -57,11 +63,11 @@ if(isset($_POST['html'])){
         $mailer->AltBody = '';
     
         // var_dump($mailer->send());
-        $mailer->send();
+        // $mailer->send();
         // echo $html;
-        if(!$mailer->send()){
-            echo $mailer->ErrorInfo;
-        }
+        // if(!$mailer->send()){
+        //     echo $mailer->ErrorInfo;
+        // }
     
     } catch (Exception $e) {
         echo '<pre>',print_r($e),'</pre>';

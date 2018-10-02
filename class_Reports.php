@@ -27,8 +27,8 @@ class Reports{
         ORDER BY contract_type ASC";
 
         $stmnt = $this->_dbConn->prepare($query);
-        $stmnt->bindValue(":first_day",date("Y-08-01"));
-        $stmnt->bindValue(":last_day",date("Y-08-31"));
+        $stmnt->bindValue(":first_day",date("Y-m-01"));
+        $stmnt->bindValue(":last_day",date("Y-m-t"));
         $stmnt->execute();
         
         return $this->_renderNewClientsToHtml($stmnt);
@@ -68,29 +68,31 @@ class Reports{
 
                 $months = round($months);
 
-                $html .= '<tr>
+                $html .= '<tr class="table_cell_tr">
                         
-                            <td class="table_cell">'. date("Y-m-d",strtotime($row['_created_at'])).'</td>
-                            <td class="table_cell">'. $row['client_name'] .'</td>
-                            <td class="table_cell">'. $row['nbr_seats'] .'</td>
-                            <td class="table_cell">'. $row['contract_type'] .'</td>
-                            <td class="table_cell">'. $months." "."Months"  .'</td>
-                            <td class="table_cell">'. $row['contract_expire_date'] .'</td>
-                            <td class="currency table_cell">'. number_format($row['mrr']) .'</td>
+                            <td class="table_cell" >'. date("Y-m-d",strtotime($row['_created_at'])).'</td>
+                            <td class="table_cell" >'. $row['client_name'] .'</td>
+                            <td class="table_cell" >'. $row['nbr_seats'] .'</td>
+                            <td class="table_cell" >'. $row['contract_type'] .'</td>
+                            <td class="table_cell" >'. $months." "."Months"  .'</td>
+                            <td class="table_cell" >'. $row['contract_expire_date'] .'</td>
+                            <td class="currency table_cell" style="border: 1px solid #c8c8c8;text-align: center;text-align:right">'. number_format($row['mrr']) .'</td>
                         </tr>';
             }
             $html .= "</tbody>";
 
-            $html .= '<tfoot style="background-color: #F0F0F0">
-                        <th class="table_cell" colspan="6">Total</th>
-                        <th class="table_cell">'. number_format($mrr_total) .'</th>
+            $html .= '<tfoot>
+                        <tr class="darkened-row">
+                            <th class="table_cell" colspan="6">Total in Php</th>
+                            <th class="table_cell">'. number_format($mrr_total) .'</th>
+                        </tr>
                     </tfoot>';
                     
             
     
         }else{
             $html .= '<tr>
-                        <td colspan="6" style="border: 1px solid #c8c8c8;border-top: 0;padding: 20px 0px 20px 0px;">                       
+                        <td colspan="7" style="border: 1px solid #c8c8c8;border-top: 0;padding: 20px 0px 20px 0px;">                       
                                 <center><h1>Empty</h1></center>    
                         </td>
                     </tr>';
@@ -118,8 +120,8 @@ class Reports{
         ";
 
         $stmnt = $this->_dbConn->prepare($query);
-        $stmnt->bindValue(":first_day",date("Y-08-01"));
-        $stmnt->bindValue(":last_day",date("Y-08-31"));
+        $stmnt->bindValue(":first_day",date("Y-m-01"));
+        $stmnt->bindValue(":last_day",date("Y-m-t"));
         $stmnt->execute();
 
         // echo "<pre>",print_r($stmnt->fetchAll()),"</pre>";
@@ -136,18 +138,18 @@ class Reports{
 
             while($row = $data->fetch(PDO::FETCH_ASSOC)){
                 
-                $html .= '<tr>
-                            <td class="table_cell">'. date("Y-m-d", strtotime($row['_modified_at']) ) .'</td>
-                            <td class="table_cell">'. $row['client_name'] .'</td>
-                            <td class="table_cell">'. $row['contract_type'] .'</td>
-                            <td class="currency table_cell">'. $row['mrr'] .'</td>
+                $html .= '<tr class="table_cell_tr">
+                            <td class="table_cell" >'. date("Y-m-d", strtotime($row['_modified_at']) ) .'</td>
+                            <td class="table_cell" >'. $row['client_name'] .'</td>
+                            <td class="table_cell" >'. $row['contract_type'] .'</td>
+                            <td class="currency table_cell" style="border: 1px solid #c8c8c8;text-align: center;text-align:right">'. number_format($row['mrr']) .'</td>
                         </tr>';
             }
 
-            $html .= '<tfoot style="background-color: #F0F0F0">
-                        <tr>
-                            <th class="table_cell" colspan="3">Total</th>
-                            <th class="currency table_cell"></th>
+            $html .= '<tfoot>
+                        <tr class="darkened-row">
+                            <th class="table_cell" colspan="3">Total in Php</th>
+                            <th class="currency table_cell" style="border: 1px solid #c8c8c8;text-align: center;text-align:right" ></th>
                         </tr>
                     </tfoot>';
 
@@ -182,8 +184,8 @@ class Reports{
         AND NOT emp.client_id = 1 ";
 
         $stmnt = $this->_dbConn->prepare($query);
-        $stmnt->bindValue(":first_day",date("Y-08-01"));
-        $stmnt->bindValue(":last_day",date("Y-08-31"));
+        $stmnt->bindValue(":first_day",date("Y-m-01"));
+        $stmnt->bindValue(":last_day",date("Y-m-t"));
         $stmnt->bindValue(":emp_status","RESIGNED");
         $stmnt->execute();
          
@@ -198,21 +200,22 @@ class Reports{
         if($data->rowCount() > 0){
             while($row = $data->fetch(PDO::FETCH_ASSOC)){
                 
-                $html .= '<tr>
-                            <td class="table_cell">'.$row['first_name'].' '.$row['last_name'].'</td>
-                            <td class="table_cell">'. $row['current_position'] .'</td>
-                            <td class="table_cell">'. $row['client_name'] .'</td>
-                            <td class="table_cell">'. $row['reporting_line'] .'</td>
-                            <td class="table_cell">'. $row['employment_status'] .'</td>
-                            <td class="table_cell">'. $row['current_salary'] .'</td>
-                            <td class="table_cell">'. date("Y-m-d",strtotime($row['hire_date'])) .'</td>
+                $html .= '<tr class="table_cell_tr">
+                            <td class="table_cell" >'.$row['first_name'].' '.$row['last_name'].'</td>
+                            <td class="table_cell" >'. $row['current_position'] .'</td>
+                            <td class="table_cell" >'. $row['client_name'] .'</td>
+                            <td class="table_cell" >'. $row['reporting_line'] .'</td>
+                            <td class="table_cell" >'. $row['employment_status'] .'</td>
+                            <td class="table_cell" >'. number_format($row['current_salary']) .'</td>
+                            <td class="table_cell" >'. date("Y-m-d",strtotime($row['hire_date'])) .'</td>
+                            <td class="table_cell" ></td>
                         </tr>';
             }       
 
             $html .= "</tbody>";
         }else{
             $html .= '<tr>
-                        <td colspan="7" style="border: 1px solid #c8c8c8;border-top: 0;padding: 20px 0px 20px 0px;">                       
+                        <td colspan="8" style="border: 1px solid #c8c8c8;border-top: 0;padding: 20px 0px 20px 0px;">                       
                                 <center><h1>Empty</h1></center>    
                         </td>
                     </tr>';
@@ -226,10 +229,11 @@ class Reports{
         
     }
 
+
     public function getNewEmployeesPB(){
 
         // $return_array = self::$array;
-        $query = "SELECT emp.first_name,emp.last_name,emp.current_position,emp.reporting_line,emp.hire_date,emp.employment_status,emp.current_salary,cli.client_name 
+        $query = "SELECT emp.first_name,emp.last_name,emp.current_position,emp.reporting_line,emp.hire_date,emp.employment_status
         FROM employees AS emp
         JOIN clients AS cli ON emp.client_id = cli.client_id
         WHERE emp.hire_date >= :first_day 
@@ -239,8 +243,8 @@ class Reports{
         AND NOT emp.employment_status = :emp_status ";
 
         $stmnt = $this->_dbConn->prepare($query);
-        $stmnt->bindValue(":first_day",date("Y-08-01"));
-        $stmnt->bindValue(":last_day",date("Y-08-31"));
+        $stmnt->bindValue(":first_day",date("Y-m-01"));
+        $stmnt->bindValue(":last_day",date("Y-m-t"));
         $stmnt->bindValue(":emp_status","RESIGNED");
         $stmnt->execute();
          
@@ -256,21 +260,19 @@ class Reports{
         if($data->rowCount() > 0){
             while($row = $data->fetch(PDO::FETCH_ASSOC)){
                 
-                $html .= '<tr>
-                            <td class="table_cell">'.$row['first_name'].' '.$row['last_name'].'</td>
-                            <td class="table_cell">'. $row['current_position'] .'</td>
-                            <td class="table_cell">'. $row['client_name'] .'</td>
-                            <td class="table_cell">'. $row['reporting_line'] .'</td>
-                            <td class="table_cell">'. $row['employment_status'] .'</td>
-                            <td class="table_cell">'. $row['current_salary'] .'</td>
-                            <td class="table_cell">'. date("Y-m-d",strtotime($row['hire_date'])) .'</td>
+                $html .= '<tr class="table_cell_tr">
+                            <td class="table_cell" >'.$row['first_name'].' '.$row['last_name'].'</td>
+                            <td class="table_cell" >'. $row['current_position'] .'</td>
+                            <td class="table_cell" >'. $row['reporting_line'] .'</td>
+                            <td class="table_cell" >'. $row['employment_status'] .'</td>
+                            <td class="table_cell" >'. date("Y-m-d",strtotime($row['hire_date'])) .'</td>
                         </tr>';
             }       
 
             $html .= "</tbody>";
         }else{
             $html .= '<tr>
-                        <td colspan="7" style="border: 1px solid #c8c8c8;border-top: 0;padding: 20px 0px 20px 0px;">                       
+                        <td colspan="5" style="border: 1px solid #c8c8c8;border-top: 0;padding: 20px 0px 20px 0px;">                       
                                 <center><h1>Empty</h1></center>    
                         </td>
                     </tr>';
@@ -288,17 +290,17 @@ class Reports{
 
         
 
-        $query = "SELECT emp.first_name,emp.last_name,emp.current_position,emp.reporting_line,emp.separation_date,cli.client_name
+        $query = "SELECT emp.first_name,emp.last_name,emp.current_position,emp.reporting_line,emp.separation_date,emp.billing_end_date,cli.client_name
         FROM employees as emp
         JOIN clients AS cli ON emp.client_id = cli.client_id
-        WHERE emp.separation_date >= :first_day
-        AND emp.separation_date <= :last_day
+        WHERE emp.billing_end_date >= :first_day
+        AND emp.billing_end_date <= :last_day
         AND emp.seat_contract_type = 'MSA'
         AND emp.employment_status = 'RESIGNED'";
 
         $stmnt = $this->_dbConn->prepare($query);
-        $stmnt->bindValue(":first_day",date("Y-05-01"));
-        $stmnt->bindValue(":last_day",date("Y-05-t"));
+        $stmnt->bindValue(":first_day",date("Y-09-01"));
+        $stmnt->bindValue(":last_day",date("Y-09-t"));
 
         $stmnt->execute();
 
@@ -315,12 +317,12 @@ class Reports{
 
                 while($row = $data->fetch(PDO::FETCH_ASSOC)){
                     
-                    $html .= '<tr>
-                                <td class="table_cell">'. $row['first_name'] . " " . $row['last_name'] .'</td>
-                                <td class="table_cell">'. $row['current_position'] .'</td>
-                                <td class="table_cell">'. $row['reporting_line'] .'</td>
-                                <td class="table_cell">'. $row['separation_date'] .'</td>
-                                <td class="table_cell">'. $row['client_name'] .'</td>
+                    $html .= '<tr class="table_cell_tr">
+                                <td class="table_cell" >'. $row['first_name'] . " " . $row['last_name'] .'</td>
+                                <td class="table_cell" >'. $row['current_position'] .'</td>
+                                <td class="table_cell" >'. $row['reporting_line'] .'</td>
+                                <td class="table_cell" >'. $row['billing_end_date'] .'</td>
+                                <td class="table_cell" >'. $row['client_name'] .'</td>
                                 </tr>';
                 }
 
@@ -407,7 +409,7 @@ class Reports{
 
         $data[9]["range"] = "90,000 + ";
         $data[9]["osa"] = $this->distribution($first_num = 90000,$second_num = 500000,$type = 'OSA')->fetchAll(PDO::FETCH_ASSOC);
-        $data[9]["msa"] = $this->distribution($first_num = 90000,$second_num = 50000,$type = "MSA")->fetchAll(PDO::FETCH_ASSOC);
+        $data[9]["msa"] = $this->distribution($first_num = 90000,$second_num = 500000,$type = "MSA")->fetchAll(PDO::FETCH_ASSOC);
         $data[9]["total"] = $data[9]["osa"][0]["total"] + $data[9]["msa"][0]["total"];
 
         // $data["ten_twenty_osa"] = $this->distribution($first_num = 10000,$second_num = 20000,$type = 'OSA');
@@ -429,34 +431,44 @@ class Reports{
 
     public function _renderSalesDistributionToHtml($data){
 
+        $msa_count = 0; //Number of clients that are MSA
+        $osa_count = 0; //Number of clients that are OSA
+        
+        $msa_total = 0;  // TOTAL MRR for MSA
+        $osa_total = 0;  // TOTAL MRR for OSA
+
+        $mrr_sum = 0;   // Total MRR for both
+
         $html = "<tbody>";
-        $msa_count = 0;
-        $osa_count = 0;
-        $mrr_sum = 0;
 
         if(count($data) > 0){
             for($i = 0; $i <= 9; $i++){
 
             $msa_count += (int)$data[$i]["msa"][0]["count"];
             $osa_count += (int)$data[$i]["osa"][0]["count"];
+
+            $msa_total += (int)$data[$i]["msa"][0]["total"];
+            $osa_total += (int)$data[$i]["osa"][0]["total"];
+
             $mrr_sum += (int)$data[$i]['total'];
 
-                $html .= '<tr>
-                            <td class="table_cell">'. $data[$i]["range"] .'</td>
-                            <td class="table_cell">'. $data[$i]["msa"][0]["count"] .'</td>
-                            <td class="table_cell">'. $data[$i]["osa"][0]["count"] .'</td>
-                            <td class="currency table_cell">'. number_format($data[$i]['total']) .'</td>
-                        </tr>';
+
+                $html .= '<tr class="table_cell_tr">
+                            <td class="table_cell" >'. $data[$i]["range"] .'</td>
+                            <td class="table_cell" >'. $data[$i]["msa"][0]["count"] .' / '. number_format($data[$i]["msa"][0]["total"]) .'</td>
+                            <td class="table_cell" >'. $data[$i]["osa"][0]["count"] .' / '. number_format($data[$i]["osa"][0]["total"]) .'</td>
+                            <td class="table_cell" >'. number_format($data[$i]['total']) .'</td>
+                         </tr>';
             }
     
             $html .= "</tbody>";
 
-            $html .= '<tfoot style="background-color: #F0F0F0">
-                        <tr>
-                            <th class="table_cell">Total</th>
-                            <th class="table_cell">'. $msa_count .'</th>
-                            <th class="table_cell">'. $osa_count .'</th>
-                            <th class="currency table_cell">'. number_format($mrr_sum) .'</th>
+            $html .= '<tfoot>
+                        <tr class="darkened-row">
+                            <th class="table_cell">Total in Php</th>
+                            <th class="table_cell" >'. $msa_count .' / '. number_format($msa_total) .'</th>
+                            <th class="table_cell" >'. $osa_count .' / '. number_format($osa_total) .'</th>
+                            <th class="currency table_cell" style="border: 1px solid #c8c8c8;text-align: center;text-align:right" >'. number_format($mrr_sum) .'</th>
                         </tr>
                     </tfoot>';
         }else{
@@ -485,8 +497,8 @@ class Reports{
         GROUP BY business_nature';
 
         $stmnt = $this->_dbConn->prepare($query);
-        // $stmnt->bindValue(":first_day",date("Y-08-01"));
-        // $stmnt->bindvalue(":last_day",date("Y-08-31"));
+        // $stmnt->bindValue(":first_day",date("Y-m-01"));
+        // $stmnt->bindvalue(":last_day",date("Y-m-t"));
         $stmnt->execute();
 
         // echo "<pre>",print_r($stmnt->fetchAll(PDO::FETCH_ASSOC)),"</pre>";
@@ -502,22 +514,22 @@ class Reports{
         if($data->rowCount() > 0){
             while($row = $data->fetch(PDO::FETCH_ASSOC)){
                 $count += $row['count'];
-                $html .= '<tr>
-                            <td class="table_cell">'. $row['business_nature'] .'</td>
-                            <td class="table_cell">'. $row['count'] .'</td>
-                            <td class="table_cell">as</td>     
+                $html .= '<tr class="table_cell_tr">
+                            <td class="table_cell" >'. $row['business_nature'] .'</td>
+                            <td class="table_cell" >'. $row['count'] .'</td>
+                            <td class="table_cell" ></td>     
                         </tr>';
             }
 
-            $html .= '<tfoot style="background-color: #F0F0F0">
-                        <tr>
-                            <th class="table_cell">Total</th>
+            $html .= '<tfoot>
+                        <tr class="darkened-row">
+                            <th class="table_cell">Total/th>
                             <th class="table_cell">'. $count .'</th>
                             <th class="table_cell"></th>
                         </tr>
                       </tfoot>';
     
-            $html .= "</tbody";
+            $html .= "</tbody>";
         }else{
             $html .= '<tr>
                         <td colspan="3" style="border: 1px solid #c8c8c8;border-top: 0;padding: 20px 0px 20px 0px;">                       
@@ -542,7 +554,7 @@ class Reports{
         
         // ";
 
-        $query = "SELECT LOWER(country) AS country, COUNT(country) AS country_count, SUM(mrr) AS MRR,client_name
+        $query = "SELECT LOWER(country) AS country, COUNT(country) AS country_count, SUM(mrr) AS MRR, COUNT(mrr) AS client_count ,client_name
         FROM clients
         WHERE active = 1
         GROUP BY SOUNDEX(country)
@@ -552,8 +564,8 @@ class Reports{
         
 
         $stmnt = $this->_dbConn->prepare($query);
-        // $stmnt->bindValue(":first_day",date("Y-08-01"));
-        // $stmnt->bindValue(":last_day",date("Y-08-31"));
+        // $stmnt->bindValue(":first_day",date("Y-m-01"));
+        // $stmnt->bindValue(":last_day",date("Y-m-t"));
         $stmnt->execute();
 
         // echo "<pre>",print_r($stmnt->fetchAll(PDO::FETCH_ASSOC)),"</pre>";
@@ -564,30 +576,32 @@ class Reports{
     }
 
     public function _renderCountryToHtml($data){
-        $count = 0;
+        $country_count = 0;
+        $client_count = 0;
         $mrr_total = 0;
         $html = "<tbody>";
 
         if($data->rowCount() > 0){
 
             while($row = $data->fetch(PDO::FETCH_ASSOC)){
-                $count += (int)$row['country_count'];
+                $country_count += (int)$row['country_count'];
+                $client_count += (int)$row['client_count'];
                 $mrr_total += (int)$row['MRR'];
 
-                $html .= '<tr>
-                            <td class="table_cell">'. ucwords($row['country']) .'</td>
-                            <td class="table_cell">'. $row['country_count'] .'</td>
-                            <td class="currency table_cell">'. number_format($row['MRR']) . '</td>
+                $html .= '<tr class="table_cell_tr">
+                            <td class="table_cell" >'. ucwords($row['country']) .'</td>
+                            <td class="table_cell" >'. $row['client_count'] .' of '. $row['country_count'] .'</td>
+                            <td class="currency table_cell" style="border: 1px solid #c8c8c8;text-align: center;text-align:right" >'. number_format($row['MRR']) . '</td>
                         </tr>';
             }
 
                 $html.='</tbody>';
 
-                $html .= '<tfoot style="background-color: #F0F0F0">
-                            <tr>
-                                <th class="table_cell" colspan="1">Total</th>
-                                <th class="table_cell" colspan="1">'. $count .'</th>
-                                <th class="currency table_cell">'. number_format($mrr_total) .'</th>
+                $html .= '<tfoot>
+                            <tr class="darkened-row">
+                                <th class="table_cell" colspan="1">Total in Php</th>
+                                <th class="table_cell" colspan="1">'. $client_count .' of '. $country_count .'</th>
+                                <th class="currency table_cell" style="border: 1px solid #c8c8c8;text-align: center;text-align:right" >'. number_format($mrr_total) .'</th>
                             </tr>
                         </tfoot>';
 
@@ -621,12 +635,12 @@ class Reports{
 
         foreach($data as $ar){
             
-            $html .= '<tr>
-                        <td class="table_cell">OPL 4</td>
-                        <td class="table_cell">Client 1</td>
+            $html .= '<tr class="table_cell_tr">
+                        <td class="table_cell" >OPL 4</td>
+                        <td class="table_cell" >Client 1</td>
                         <td class="table_cell currency">200,000.00</td>
-                        <td class="table_cell">Paid</td>
-                        <td class="table_cell">10%</td>
+                        <td class="table_cell" >Paid</td>
+                        <td class="table_cell" >10%</td>
                     </tr>';
         }
 
@@ -634,7 +648,7 @@ class Reports{
         }else{
             $html = '<table align="center" border="0" cellpadding="10" cellspacing="0" class="table_container">
                     <thead>
-                        <tr style="background-color: #F0F0F0">
+                        <tr class="darkened-row">
                             <th class="table_cell">Office</th>
                             <th class="table_cell">Client Name</th>
                             <th class="table_cell">Invoice Amount</th>      
@@ -668,40 +682,40 @@ class Reports{
 
         foreach($data as $ar){
             
-            $html .= '<tr>
-                        <td class="table_cell">OPL 4</td>
-                        <td class="currency table_cell">600,000.00</td>
-                        <td class="currency table_cell">400,000.00</td>
-                        <td class="currency table_cell">200,000.00</td>
+            $html .= '<tr class="table_cell_tr">
+                        <td class="table_cell" >OPL 4</td>
+                        <td class="currency table_cell" style="border: 1px solid #c8c8c8;text-align: center;text-align:right">600,000.00</td>
+                        <td class="currency table_cell" style="border: 1px solid #c8c8c8;text-align: center;text-align:right">400,000.00</td>
+                        <td class="currency table_cell" style="border: 1px solid #c8c8c8;text-align: center;text-align:right">200,000.00</td>
                     </tr>
                     <tr>
-                        <td class="table_cell">OPL 5</td>
-                        <td class="currency table_cell">600,000.00</td>
-                        <td class="currency table_cell">400,000.00</td>
-                        <td class="currency table_cell">200,000.00</td>
+                        <td class="table_cell" >OPL 5</td>
+                        <td class="currency table_cell" style="border: 1px solid #c8c8c8;text-align: center;text-align:right">600,000.00</td>
+                        <td class="currency table_cell" style="border: 1px solid #c8c8c8;text-align: center;text-align:right">400,000.00</td>
+                        <td class="currency table_cell" style="border: 1px solid #c8c8c8;text-align: center;text-align:right">200,000.00</td>
                     </tr>
                     <tr>
-                        <td class="table_cell">OPL 6</td>
-                        <td class="currency table_cell">600,000.00</td>
-                        <td class="currency table_cell">400,000.00</td>
-                        <td class="currency table_cell">200,000.00</td>
+                        <td class="table_cell" >OPL 6</td>
+                        <td class="currency table_cell" style="border: 1px solid #c8c8c8;text-align: center;text-align:right">600,000.00</td>
+                        <td class="currency table_cell" style="border: 1px solid #c8c8c8;text-align: center;text-align:right">400,000.00</td>
+                        <td class="currency table_cell" style="border: 1px solid #c8c8c8;text-align: center;text-align:right">200,000.00</td>
                     </tr>';
         }
 
             $html.='</tbody>';
 
-            $html .= '<tfoot style="background-color: #F0F0F0">
-                        <tr>
-                            <th class="table_cell">Total</th>
-                            <th class="currency table_cell">1,800,000.00</th>
-                            <th class="currency table_cell">1,200,000.00</th>
-                            <th class="currency table_cell">600,000.00</th>
+            $html .= '<tfoot>
+                        <tr class="darkened-row">
+                            <th class="table_cell">Total in Php</th>
+                            <th class="currency table_cell" style="border: 1px solid #c8c8c8;text-align: center;text-align:right" >1,800,000.00</th>
+                            <th class="currency table_cell" style="border: 1px solid #c8c8c8;text-align: center;text-align:right" >1,200,000.00</th>
+                            <th class="currency table_cell" style="border: 1px solid #c8c8c8;text-align: center;text-align:right" >600,000.00</th>
                         </tr>    
                     </tfoot>';
         }else{
             $html = '<table align="center" border="0" cellpadding="10" cellspacing="0" class="table_container">
                     <thead>
-                        <tr style="background-color: #F0F0F0">
+                        <tr class="darkened-row">
                             <th class="table_cell">Office</th>
                             <th class="table_cell">Client Name</th>
                             <th class="table_cell">Invoice Amount</th>      

@@ -11,63 +11,79 @@
 </head>
 
 <style>
-  	body
+	body{
+		background-color:#e6e6e6;
+		font-family: "Nirmala UI", helvetica, sans-serif;
+		margin: 0;
+		padding: 0;
+		color: #464646;
+	}
+	
+	.title_icon
   	{
-  		font-family: "Nirmala UI", helvetica, sans-serif;
-  		margin: 0; 
-  		padding: 0;
-  		color: #464646
-  	}
-  	.title_icon
-  	{
-  		width: 45px;float: left;margin: 0px 15px 0px 15px
+		width: 45px;
+		float: left;
+		margin: 0px 15px 0px 15px;
   	}
   	.table_container
   	{
-  		width: 90%;background-color: #ffffff;
-  		border: 1px solid #c8c8c8;
+		width: 99%;
+		background-color: #ffffff;
+		border: 1px solid #c8c8c8;
   	}
   	.table_title_container
   	{
-  		height:90px;
-  		width: 100%;
-  		background: linear-gradient(to bottom right, #39a395,#94dffc);
-  		padding-top:45px;
-  		padding-left: 10px;
-  		margin-bottom: 0;
+		width: 100%;
+		background-color: rgb(140, 218, 243);
+		padding:5px 5px;margin-bottom: 0;
   	}
   	.table_title
   	{
-  		font-size:35px;
-  		margin:0px;
-  		font-family: "Nirmala UI", helvetica;
-  		font-weight: 100;
-  		color: #ffffff;
-  		padding-top: 5px;
-  		padding-left: 15px
+		font-size:20px;
+		display:inline;font-family: "Nirmala UI", helvetica;
+		font-weight: 100;
+		color: #ffffff;
+		padding-top: 5px;
+		padding-left: 15px;
   	}
   	.table_cell
   	{
-  		border: 1px solid #c8c8c8;
-  		text-align: center;
+		border: 1px solid #c8c8c8;text-align: center;
   	}
   	.currency
     {
-        text-align: right;
+		text-align: right;
     }
 
 	.pagebreak {
-			page-break-after: auto;
-			page-break-inside:avoid;
+		page-break-after: auto;
+		page-break-inside:avoid;	
 		}
+
+	tr .table_cell_tr:nth-child(even) 
+	{
+		background: #fafafa !important;
+	}
+
+	.darkened-row{
+		background-color: #F0F0F0;
+	}
+
+	#pb_logo{
+		width: 60px !important;
+	}
+
+	img{
+		width : 30px !important;
+	}
 
 </style>
 
-<body style="background-color:#e6e6e6">
+<body>
 
     <div id="reports">
 		<div>
-			<table align="center" border="0" cellpadding="0" cellspacing="0" width="1200" style="border:0;">
+			<table align="center" border="0" cellpadding="0" cellspacing="0" width="1080" style="border:0;">
 				<tbody>
 					<tr style="height: 40px;">
 						<td style="width: 40px"></td>
@@ -76,10 +92,10 @@
 					</tr>
 					<tr>
 						<td></td>
-						<td align="center" bgcolor="" style="height:300px;background: linear-gradient(to bottom , #1f3e6c,#48b2a3);border-top-left-radius: 30px;border-top-right-radius: 30px">
-							<img src="cid:pb_cropped" style="width: 60px;">
-							<p style="font-size:40px;margin:0px;font-family: ' . 'Arial Black'.', Arial;font-weight: 800;color: #ffffff">MANAGEMENT REPORTS</p>
-							<p style="color: #ffffff;margin: 0px;">As of August 28, 2018 3:31 PM</p>
+						<td align="center" bgcolor="" style="height:300px;background-color: rgb(140, 218, 243);border-top-left-radius: 30px;border-top-right-radius: 30px">
+							<img src="cid:pb_cropped" id="pb_logo">
+							<p style="font-size:40px;margin:0px;font-family: Arial Black, Arial;font-weight: 800;color: #ffffff">MANAGEMENT REPORTS</p>
+							<p style="color: #ffffff;margin: 0px;">As of <?php echo date("Y-m-d"); ?></p>
 						</td>
 						<td></td>
 					</tr>
@@ -89,7 +105,7 @@
     </div>
 <!-- NEW CLIENTS -->
 	<div class="pagebreak">
-		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1200" style="border:0;">
+		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1080" style="border:0;">
 			<tbody>
 				<tr>
 					<td style="width: 40px"></td>
@@ -104,20 +120,25 @@
 								<tbody>
 									<tr style="padding: 0">
 										<td>
-											<div class="table_title_container">
-												<img class="title_icon" src="cid:new_client" style="">
-												<p class="table_title" style="">New Clients</p>
+											<!--[if (gte mso 9)]>
+												<div class="table_title_container" style="height:60px;width: 100%;background-color: blue;padding-top:45px;padding-left: 10px;margin-bottom: 0;">
+											<![endif]-->
+
+												<div class="table_title_container">
+											<!-- <div class="table_title_container"> -->
+												<img class="title_icon" src="cid:new_client">
+												<p class="table_title">New Clients</p>
 											</div>
 										</td>
 									</tr>
 									<tr >
-										<td style="border: 1px solid #c8c8c8;border-top: 0;padding: 20px 0px 20px 0px;">
+										<td style="border: 1px solid #c8c8c8;border-top: 0;padding: 10px 0px 10px 0px;">
 											<table id="new_clients" align="center" border="0" cellpadding="10" cellspacing="0" class="table_container">
 												<thead>
-													<tr style="background-color: #F0F0F0">
-														<th colspan="7" class="table_cell">June</th>
+													<tr class="darkened-row">
+														<th colspan="7" class="table_cell"><?php echo date('F'); ?></th>
 													</tr>
-													<tr style="background-color: #F0F0F0">
+													<tr class="darkened-row">
 														<th class="table_cell">Date Signed</th>
 														<th class="table_cell">Client</th>
 														<th class="table_cell">Seats</th>
@@ -135,6 +156,7 @@
 								</tbody>
 							</table>
 						</div>
+						<td></td>
 					</td> 
 				</tr>
 			</tbody>
@@ -144,7 +166,7 @@
 
 <!-- LOST CLIENTS -->
 	<div class="pagebreak">
-		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1200" style="border:0;">
+		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1080" style="border:0;">
 			<tbody>
 				<tr>
 					<td style="width: 40px"></td>
@@ -157,22 +179,22 @@
 					<div style="margin: 10px;">
 							<table style="width: 100%; overflow: hidden;" cellspacing="0" cellpadding="0">
 								<tbody>
-									<tr style="padding: 0">
+									<tr style="padding: 0;">
 										<td>
 											<div class="table_title_container">
-												<img class="title_icon" src="cid:client_lost" style="">
-												<p class="table_title" style="">Lost Clients</p>
+												<img class="title_icon" src="cid:client_lost">
+												<p class="table_title">Lost Clients</p>
 											</div>
 										</td>
 									</tr>
 									<tr >
-										<td style="border: 1px solid #c8c8c8;border-top: 0;padding: 20px 0px 20px 0px;">
+										<td style="border: 1px solid #c8c8c8;border-top: 0;padding: 10px 0px 10px 0px;">
 											<table id="lost_clients" align="center" border="0" cellpadding="10" cellspacing="0" class="table_container">
 												<thead>
-													<tr style="background-color: #F0F0F0">
-														<th colspan="6" class="table_cell">June</th>
+													<tr class="darkened-row">
+														<th colspan="6" class="table_cell"><?php echo date('F'); ?></th>
 													</tr>
-													<tr>
+													<tr class="darkened-row">
 														<th class="table_cell">Separation Date</th>
 														<th class="table_cell">Client</th>
 														<th class="table_cell">Type of Contract</th>
@@ -186,6 +208,7 @@
 								</tbody>
 							</table>
 						</div>
+						<td></td>
 					</td> 
 				</tr>
 			</tbody>
@@ -195,7 +218,7 @@
 
 <!-- NEW EMPLOYEES -->
 	<div class="pagebreak">
-		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1200" style="border:0;">
+		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1080" style="border:0;">
 			<tbody>
 				<tr>
 					<td style="width: 40px"></td>
@@ -211,45 +234,45 @@
 									<tr style="padding: 0">
 										<td>
 											<div class="table_title_container">
-												<img class="title_icon" src="cid:new_employee" style="">
-												<p class="table_title" style="">New Employees</p>
+												<img class="title_icon" src="cid:new_employee">
+												<p class="table_title">New Employees</p>
 											</div>
 										</td>
 									</tr>
 									<tr >
-										<td style="border: 1px solid #c8c8c8;border-top: 0;padding: 20px 0px 20px 0px;">
-										<table id="new_employees_pb" align="center" border="0" cellpadding="10" cellspacing="0" class="table_container" style="margin-top: 20px">
-												<thead style="background-color: #F0F0F0">
-													<tr>
+										<td style="border: 1px solid #c8c8c8;border-top: 0;padding: 10px 0px 10px 0px;">
+										<table id="new_employees_pb" align="center" border="0" cellpadding="10" cellspacing="0" class="table_container" >
+												<thead>
+													<tr class="darkened-row">
 														<th class="table_cell" colspan="7">PB Core</th>
 													</tr>
-													<tr>
+													<tr class="darkened-row">
 														<th class="table_cell">Name</th>
 														<th class="table_cell">Position Title</th>
-														<th class="table_cell">Company</th>
 														<th class="table_cell">Immediate Supervisor</th>
 														<th class="table_cell">Employment Status</th>
-														<th class="table_cell">Salary</th>
 														<th class="table_cell">Onboarding Date</th>
+														
 														
 													</tr>
 												</thead>
 												<?php echo $oReports->getNewEmployeesPB(); ?>
 											</table>
 
-											<table id="new_employees_non_pb" align="center" style="margin-top:20px" border="0" cellpadding="10" cellspacing="0" class="table_container">
-												<thead style="background-color: #F0F0F0">
+											<table id="new_employees_non_pb" align="center" border="0" cellpadding="10" cellspacing="0" class="table_container" style="margin-top:20px" >
+												<thead class="darkened-row">
 													<tr >
-														<th  class="table_cell" colspan="7">PB Core</th>
+														<th class="table_cell" colspan="8">PB Non Core</th>
 													</tr>
 													<tr>
 														<th class="table_cell">Name</th>
 														<th class="table_cell">Position Title</th>
-														<th class="table_cell">Company</th>
+														<th class="table_cell">Client</th>
 														<th class="table_cell">Immediate Supervisor</th>
 														<th class="table_cell">Employment Status</th>
 														<th class="table_cell">Salary</th>
 														<th class="table_cell">Onboarding Date</th>
+														<th class="table_cell">Revenue</th>
 														 
 														
 													</tr>
@@ -262,6 +285,7 @@
 								</tbody>
 							</table>
 						</div>
+						<td></td>
 					</td> 
 				</tr>
 			</tbody>
@@ -271,7 +295,7 @@
 
 <!--  LOST EMPLOYEES-->
 	<div class="pagebreak">
-		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1200" style="border:0;">
+		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1080" style="border:0;">
 			<tbody>
 				<tr>
 					<td style="width: 40px"></td>
@@ -287,21 +311,21 @@
 									<tr style="padding: 0">
 										<td>
 											<div class="table_title_container">
-												<img class="title_icon" src="cid:new_employee" style="">
-												<p class="table_title" style="">Lost Employees</p>
+												<img class="title_icon" src="cid:new_employee">
+												<p class="table_title">Lost Employees</p>
 											</div>
 										</td>
 									</tr>
 									<tr >
-										<td style="border: 1px solid #c8c8c8;border-top: 0;padding: 20px 0px 20px 0px;">
+										<td style="border: 1px solid #c8c8c8;border-top: 0;padding: 10px 0px 10px 0px;">
 											<table id="lost_employees" align="center" border="0" cellpadding="10" cellspacing="0" class="table_container">
 												<thead>
-													<tr>
+													<tr class="darkened-row">
 														<th  class="table_cell">Name</th>
 														<th class="table_cell">Position Title</th>
 														<th class="table_cell">Immediate Supervisor</th>
 														<th class="table_cell">Separation Date</th>
-														<th class="table_cell">Company</th>
+														<th class="table_cell">Client</th>
 													</tr>
 												</thead>
 												<?php echo $oReports->getLostEmployees(); ?>
@@ -311,6 +335,7 @@
 								</tbody>
 							</table>
 						</div>
+						<td></td>
 					</td> 
 				</tr>
 			</tbody>
@@ -320,7 +345,7 @@
 
 <!-- SALES DISTRIBUTION -->
 	<div class="pagebreak">
-		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1200" style="border:0;">
+		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1080" style="border:0;">
 			<tbody>
 				<tr>
 					<td style="width: 40px"></td>
@@ -336,20 +361,20 @@
 									<tr style="padding: 0">
 										<td>
 											<div class="table_title_container">
-												<img class="title_icon" src="cid:client_price_range " style="">
-												<p class="table_title" style="">Active Clients Sales Distribution</p>
+												<img class="title_icon" src="cid:client_price_range">
+												<p class="table_title">Active Clients Sales Distribution</p>
 											</div>
 										</td>
 									</tr>
 									<tr >
-										<td style="border: 1px solid #c8c8c8;border-top: 0;padding: 20px 0px 20px 0px;">
+										<td style="border: 1px solid #c8c8c8;border-top: 0;padding: 10px 0px 10px 0px;">
 											<table id="sales_distribution" align="center" border="0" cellpadding="10" cellspacing="0" class="table_container">
 												<thead>
-													<tr>
+													<tr class="darkened-row">
 														<th class="table_cell">Price Range</th>
-														<th class="table_cell">MSA</th>
-														<th class="table_cell">OSA</th>
-														<th class="table_cell">MRR</th>
+														<th class="table_cell">MSA<br><span style="font-weight:lighter;font-size:13px">(client count / total mrr)</span></th>
+														<th class="table_cell">OSA<br><span style="font-weight:lighter;font-size:13px">(client count / total mrr)</span></th>
+														<th class="table_cell">MRR<br><span style="font-weight:lighter;font-size:13px">(osa + msa)</span></th>
 													</tr>
 												</thead>
 												<?php echo $oReports->getSalesDistribution(); ?>								
@@ -359,6 +384,7 @@
 								</tbody>
 							</table>
 						</div>
+						<td></td>
 					</td> 
 				</tr>
 			</tbody>
@@ -368,7 +394,7 @@
 
 <!-- CLIENT/EMPLOYEE by INDUSTRY -->
 	<div class="pagebreak">
-		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1200" style="border:0;">
+		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1080" style="border:0;">
 			<tbody>
 				<tr>
 					<td style="width: 40px"></td>
@@ -384,16 +410,16 @@
 									<tr style="padding: 0">
 										<td>
 											<div class="table_title_container">
-												<img class="title_icon" src="cid:client_info" style="">
-												<p class="table_title" style="">Client / Employee by Industry</p>
+												<img class="title_icon" src="cid:client_by_industry">
+												<p class="table_title">Client / Employee by Industry</p>
 											</div>
 										</td>
 									</tr>
 									<tr >
-										<td style="border: 1px solid #c8c8c8;border-top: 0;padding: 20px 0px 20px 0px;">
+										<td style="border: 1px solid #c8c8c8;border-top: 0;padding: 10px 0px 10px 0px;">
 											<table id="client_employee_by_industry" align="center" border="0" cellpadding="10" cellspacing="0" class="table_container">
 												<thead>
-													<tr>
+													<tr class="darkened-row">
 														<th class="table_cell">Industry</th>
 														<th class="table_cell">No. of Clients</th>
 														<th class="table_cell">No. of Employees</th>
@@ -406,6 +432,7 @@
 								</tbody>
 							</table>
 						</div>
+						<td></td>
 					</td> 
 				</tr>
 			</tbody>
@@ -415,7 +442,7 @@
 
 <!-- CLIENTS REVENUE BY COUNTRY -->
 	<div class="pagebreak">
-		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1200" style="border:0;">
+		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1080" style="border:0;">
 			<tbody>
 				<tr>
 					<td style="width: 40px"></td>
@@ -431,16 +458,16 @@
 									<tr style="padding: 0">
 										<td>
 											<div class="table_title_container">
-												<img class="title_icon" src="cid:client_revenue" style="">
-												<p class="table_title" style="">Clients Revenue by Country</p>
+												<img class="title_icon" src="cid:client_revenue_by_country">
+												<p class="table_title">Clients Revenue by Country</p>
 											</div>
 										</td>
 									</tr>
 									<tr >
-										<td style="border: 1px solid #c8c8c8;border-top: 0;padding: 20px 0px 20px 0px;">
+										<td style="border: 1px solid #c8c8c8;border-top: 0;padding: 10px 0px 10px 0px;">
 											<table id="clients_revenue_by_country" align="center" border="0" cellpadding="10" cellspacing="0" class="table_container">
 												<thead>
-													<tr>
+													<tr class="darkened-row">
 														<th class="table_cell">Country</th>
 														<th class="table_cell">No. of Clients</th>
 														<th class="table_cell">MRR</th>
@@ -453,6 +480,7 @@
 								</tbody>
 							</table>
 						</div>
+						<td></td>
 					</td> 
 				</tr>
 			</tbody>
@@ -461,8 +489,8 @@
 <!-- END CLIENTS REVENUE BY COUNTRY -->
 
 <!-- COLLECTIONS -->
-	<div class="pagebreak">
-		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1200" style="border:0;">
+	<!-- <div class="pagebreak">
+		<table align="center" border="0" cellpadding="0" cellspacing="0" width="1080" style="border:0;">
 			<tbody>
 				<tr>
 					<td style="width: 40px"></td>
@@ -478,16 +506,16 @@
 									<tr style="padding: 0">
 										<td>
 											<div class="table_title_container">
-												<img class="title_icon" src="cid:collection" style="">
-												<p class="table_title" style="">Collections</p>
+												<img class="title_icon" src="cid:collection">
+												<p class="table_title">Collections</p>
 											</div>
 										</td>
 									</tr>
 									<tr >
-										<td id="collections" style="border: 1px solid #c8c8c8;border-top: 0;padding: 20px 0px 20px 0px;">
+										<td id="collections" style="border: 1px solid #c8c8c8;border-top: 0;padding: 10px 0px 10px 0px;">
 										<table id="collections" align="center" border="0" cellpadding="10" cellspacing="0" class="table_container">
 											<thead>
-												<tr style="background-color: #F0F0F0">
+												<tr class="darkened-row">
 													<th class="table_cell">Office</th>
 													<th class="table_cell">Client Name</th>
 													<th class="table_cell">Invoice Amount</th>      
@@ -497,9 +525,9 @@
 											</thead>
 											<?php echo $oReports->getCollection_one(); ?>
 										</table>
-										<table align="center" border="0" cellpadding="10" cellspacing="0" style="margin-top: 20px;" class="table_container">
+										<table align="center" border="0" cellpadding="10" cellspacing="0" style="margin-top: 20px;width: 90%;background-color: #ffffff;border: 1px solid #c8c8c8;" class="table_container">
 										<thead>
-											<tr style="background-color: #F0F0F0"> 
+											<tr class="darkened-row"> 
 												<th class="table_cell">Office</th>
 												<th class="table_cell">Total Invoiced</th>
 												<th class="table_cell">Collected</th>      
@@ -517,7 +545,7 @@
 				</tr>
 			</tbody>
 		</table>
-	</div>
+	</div> -->
 <!-- END COLLECTIONNS -->
 
      
@@ -686,10 +714,16 @@
 			// 	}.bind(this) ,2000);
 			// }.bind(this));
 
+				setTimeout(function(){
+					this.sendEmail();
+					// console.log($("#reports").html());
+				}.bind(this) ,2000);
+			
+
 		}
 	}
 
-	reports.init();
+$(document).ready(() => reports.init());
 
   
 
